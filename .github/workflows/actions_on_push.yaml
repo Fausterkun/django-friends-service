@@ -9,18 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_NAME: test_db
-      DATABASE_USERNAME: test
-      DATABASE_USER_PASSWORD: test
-      DATABASE_PORT: 5432
+      POSTGRES_DB: test_db
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_PORT: 5432
 
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: ${{ env.DATABASE_NAME }}
-          POSTGRES_USER: ${{ env.DATABASE_USERNAME }}
-          POSTGRES_PASSWORD: ${{ env.DATABASE_USER_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         ports:
           - 5432:5432
         options:
@@ -52,10 +52,10 @@ jobs:
       - name: Test with pytest
         env:
           POSTGRES_HOST: postgres
-          POSTGRES_DB: ${{ env.DATABASE_NAME }}
-          POSTGRES_USER: ${{ env.DATABASE_USERNAME }}
-          POSTGRES_PASSWORD: ${{ env.DATABASE_USER_PASSWORD }}
-          POSTGRES_PORT: ${{ env.DATABASE_PORT }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
         working-directory: ./src
         run: |
           pytest
